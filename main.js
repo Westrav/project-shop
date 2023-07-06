@@ -1,4 +1,3 @@
-
 // Подсчет и установка общей стоимости
 function setAllPrice(pri, cou, spanOption) {
     let price = String(pri * cou)
@@ -93,11 +92,6 @@ function createCard(product) {
     const divSpan = document.createElement('div')
     const spanOption = document.createElement('span')
 
-    // const checkOutBasket = document.createElement('div')
-    // checkOutBasket.classList.add('basket_check_out_product')
-    // const btnCheckOutBasket = document.createElement('button')
-    // btnCheckOutBasket.classList.add('cheack_out_btn')
-
     productsBasket.prepend(cardBasket)
     cardBasket.append(cardBasketImg)
     cardBasketImg.append(img)
@@ -129,11 +123,6 @@ function createCard(product) {
     basketOption.append(divSpan)
     divSpan.append(spanOption)
     setAllPrice(product.price, product.count, spanOption)
-
-    // productsBasket.append(checkOutBasket)
-    // checkOutBasket.append(btnCheckOutBasket)
-    // btnCheckOutBasket.textContent = 'Оформлення замовлення' checkOutBasket, btnCheckOutBasket
-
     return [buttonInfoDel, btnUp, btnDown, inputCount, cardBasket, spanOption]
 }
 // Открытие и закрытие корзины
@@ -144,16 +133,13 @@ function openCloseBasket() {
             basketFluid.classList.toggle('open_basket')
             blockBasket.classList.toggle('open_basket')
             productsBasket.innerHTML = '';
-            // console.log(basket.length)
             if (basket.length >= 1) {
                 checkOutBasket.classList.add('add_basket_check_out_product')
             }
             for (const product of basket) {
-                // console.log(product)
                 const data = createCard(product)
                 controllersBasket(data, product);
             }
-        // console.log(basket)
     })
     
     document.onclick = (e) => {
@@ -162,7 +148,6 @@ function openCloseBasket() {
             !e.target.classList.contains('basket_controller') &&
             containerFluidPopUp.contains(e.target) == false
         ) {
-            // popUpProduct.contains(e.target) == false &&
 
             document.body.style.overflow = ''
 
@@ -188,13 +173,6 @@ function controllersBasket(data, product) {
     buttonInfoDel.onclick = () => {
         const idxDelProduct = basket.findIndex(productBasket => productBasket.name == product.name)
         const itemDel = basket[idxDelProduct];
-        // Элемент который будет удален
-        // 1) Получить доступ ко всем карточкам на сайте +
-        // 2) Перебираешь каждую карточку и ее имя       +
-        // 3) Cравниваешь имя карточки и имя удаляемого элемента    +
-        // 4) Если они совпали через карточку спускаешься до кнопки +
-        // 5) Меняешь кнопку    ---
-        // console.log(itemDel.name)
 
         for(const card of cards){
             let cardName = card.lastElementChild.children[0].textContent
@@ -229,9 +207,7 @@ function controllersBasket(data, product) {
     }
     btnCheckOutBasket.onclick = () => {
         containerFluidPopUp.classList.toggle('open_fluid_pop_up')
-
         popUpProduct.classList.toggle('pop_up_open')
-
         blockBasket.classList.remove('open_basket')
         basketFluid.classList.remove('open_basket')
     }
@@ -268,7 +244,6 @@ function popUpProductMenu() {
 
         inputName = inputNamePopUp.value
         inputPhone = inputPhonePopUp.value
-
         let sum = 0
 
         let textSend = `Заказчик: ${inputName}%0A`;
@@ -285,16 +260,9 @@ function popUpProductMenu() {
             .then((response) => {
                 console.log(response)
             })
-
         inputNamePopUp.value = ''
         inputPhonePopUp.value = ''
-        // &parse_mode=HTML
     }
-    // fetch('https://api.telegram.org/bot6267013752:AAGoWSqGgaTxLKsX2xvTD8fuJ53f0vekwOc/sendMessage?chat_id=596654719&text=message')
-    // .then((response)=> {
-    //     console.log(response)
-    // })
-
 }
 //Функция закрытия popupOrder
 function closePopupOrder() {
@@ -347,59 +315,3 @@ clickHeard()
 searchController()
 popUpProductMenu()
 closePopupOrder()
-
-
-// console.log(cards)
-
-
-
-// как убрать кнопку поапа??????????????
-// containerFluidPopUp не отключается
-
-
-
-/*
-    Доработать поиск +
-    Доработать бажане  ?
-    Убрать войти +
-
-    в корзине, добавить кнопку заказать +
-    при нажатии на нее появляется по середине экрана попап
-    в который нужно ввести имя и номер телефона
-    и кнопка заказать
-    при нажатии на заказать - закрывается попап +
-    
-    План на урок - реализовать реально отправку заказа в телеграм.
-*/
-
-
-/*
-    DZ
-    1 - Отправляет информацию об заказе в телеграмм
-    если произошла ошибка в заказе - уведомляет об ошибке и просит повторить чуть позже
-    если ошибка не произошла - уведомляет что с вами свяжутся в течении часа для подтверждения заказа
-    
-    Пример
-    Заказчик: Артур
-    Номер телефона: +3805464562342
-    Товары:
-    1) Сукня рожева 3 штуки 1200/1шт
-    2) Сукня червона 2 штуки 600/1шт
-    Общий прайс: 4800
-
-    
-    2 - popup по центру
-    4 - Адаптив под все устройства.
-*/
-
-
-/*
-
-    1 - пофиксить кнопку
-    2 - Доверстать нижнее меню
-    3 - Пофиксить удаление из корзины ** 
-*/
-
-
-
-
